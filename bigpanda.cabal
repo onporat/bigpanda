@@ -1,13 +1,13 @@
 name:                bigpanda
 version:             0.1.0.0
-synopsis:            Initial project template from stack
+synopsis:            BigPanda exercise
 description:         Please see README.md
-homepage:            https://github.com/githubuser/bigpanda#readme
+homepage:            https://github.com/onporat/bigpanda#readme
 license:             BSD3
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2016 Author name here
+author:              Oded Porat
+maintainer:          onporat@gmail.com
+copyright:           2016 Oded Porat
 category:            Web
 build-type:          Simple
 -- extra-source-files:
@@ -43,4 +43,4 @@ test-suite bigpanda-test
 
 source-repository head
   type:     git
-  location: https://github.com/githubuser/bigpanda
+  location: https://github.com/onporat/bigpanda

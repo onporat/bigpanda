@@ -45,11 +45,12 @@ instance FromJSON Event where
  parseJSON _ = mempty
 
 data State
-   = State { _state_typeCount :: Map Text Int
+   = State { _state_typeCount
            , _state_wordCount :: Map Text Int
-           } deriving (Show)
+           } deriving (Show,Generic)
 
 makeLenses ''State
+instance ToJSON State
 
 emptyState :: State
 emptyState = State
@@ -64,7 +65,7 @@ countWord :: Event -> State -> State
 countWord e = state_wordCount %~ addWordCount (event_data e)
 
 addWordCount :: Text -> Map Text Int -> Map Text Int
-addWordCount w m = Map.unionWith (+) m $ Map.singleton w 1
+addWordCount w = Map.unionWith (+) (Map.singleton w 1)
 
 atomicModifyIORef_' :: IORef a -> (a -> a) -> IO ()
 atomicModifyIORef_' r f = atomicModifyIORef' r $ \a -> (f a, ())
@@ -107,7 +108,7 @@ startGenerator sRef = do
 site :: IORef State -> Snap ()
 site sRef = do
     state <- liftIO $ readIORef sRef
-    writeText $ T.pack $ show state
+    writeBS $ LB.toStrict $ encode state
 
 
 main :: IO ()
